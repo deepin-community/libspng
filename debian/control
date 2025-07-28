@@ -1,15 +1,91 @@
-Source: template-repository
-Section: unknown
+Source: libspng
+Section: libs
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Andrea Pappacoda <tachi@debian.org>
+Build-Depends:
+ debhelper-compat (= 13),
+ dpkg-build-api (= 1),
+Build-Depends-Arch:
+ libpng-dev <!nocheck>,
+ meson,
+ pkg-config,
+ zlib1g-dev,
+Build-Depends-Indep:
+ mkdocs <!nodoc>,
+ mkdocs-material <!nodoc>,
+ node-jquery <!nodoc>,
+Standards-Version: 4.7.2
+Homepage: https://libspng.org
+Vcs-Git: https://salsa.debian.org/debian/libspng.git
+Vcs-Browser: https://salsa.debian.org/debian/libspng
+X-Style: black
 
-Package: template-repository
+Package: libspng0
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends},
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: simple, modern libpng alternative
+ libspng is a C library for reading and writing Portable Network Graphics
+ (PNG) format files with a focus on security and ease of use.
+ .
+ The simple API allows decoding a PNG file in just a few function calls,
+ and no raw pointers or callback functions are involved.
+ .
+ Following good security practises, code is written according to the rules
+ of the CERT C Coding Standard. All integer arithmetic is checked for
+ overflow and all error conditions are handled gracefully. The library
+ is also continuously fuzzed, scanned by static analyzers and features
+ over 1000 test cases.
+
+Package: libspng-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libspng0 (= ${binary:Version}),
+ zlib1g-dev,
+ ${misc:Depends},
+Recommends:
+ libspng-doc,
+Description: simple, modern libpng alternative - development
+ libspng is a C library for reading and writing Portable Network Graphics
+ (PNG) format files with a focus on security and ease of use.
+ .
+ The simple API allows decoding a PNG file in just a few function calls,
+ and no raw pointers or callback functions are involved.
+ .
+ Following good security practises, code is written according to the rules
+ of the CERT C Coding Standard. All integer arithmetic is checked for
+ overflow and all error conditions are handled gracefully. The library
+ is also continuously fuzzed, scanned by static analyzers and features
+ over 1000 test cases.
+ .
+ This package contains the header and development files needed to build
+ programs and packages using libspng.
+
+Package: libspng-doc
+Section: doc
+Architecture: all
+Multi-Arch: foreign
+Depends:
+ fonts-roboto,
+ ${misc:Depends},
+ ${mkdocs:Depends},
+Description: simple, modern libpng alternative - documentation
+ libspng is a C library for reading and writing Portable Network Graphics
+ (PNG) format files with a focus on security and ease of use.
+ .
+ The simple API allows decoding a PNG file in just a few function calls,
+ and no raw pointers or callback functions are involved.
+ .
+ Following good security practises, code is written according to the rules
+ of the CERT C Coding Standard. All integer arithmetic is checked for
+ overflow and all error conditions are handled gracefully. The library
+ is also continuously fuzzed, scanned by static analyzers and features
+ over 1000 test cases.
+ .
+ This package contains the documentation.

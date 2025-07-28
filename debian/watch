@@ -1,0 +1,3 @@
+version=4
+https://libspng.org/download/ \
+.+/v?@ANY_VERSION@@ARCHIVE_EXT@

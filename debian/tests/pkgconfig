@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -eu
+
+cd "$AUTOPKGTEST_TMP"
+
+cc -Wall -Wextra -Wpedantic -Werror -o example "$OLDPWD/examples/example.c" $(pkg-config --cflags --libs spng)
+./example "$OLDPWD/tests/images/basn2c16.png"
