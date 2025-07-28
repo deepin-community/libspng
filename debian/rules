@@ -1,4 +1,36 @@
 #!/usr/bin/make -f
 
+# optimize=-lto because I use Meson's LTO
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all optimize=-lto qa=+all
+
 %:
-	dh $@
+	dh $@ --buildsystem=meson
+
+# Running Meson isn't needed when building the -doc package
+%-indep:
+	dh $@ --buildsystem=none
+
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+  test := true
+else
+  test := false
+endif
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-Db_lto=true \
+		-Ddev_build=$(test) \
+		-Denable_opt=false
+
+ifeq (,$(filter nodoc,$(DEB_BUILD_OPTIONS)))
+# The sed call brutally removes every external stylesheet or font, as they
+# automatically download things from the internet and trigger Lintian's
+# privacy breach warnings.
+execute_after_dh_auto_build-indep:
+	mkdocs build
+	find site -type f -exec sed -i 's|<link [^>]*href="http[^>]*>||g' '{}' ';'
+
+# dh_mkdocs hangs when using --theme-package
+execute_after_dh_installdocs-indep:
+	dh_mkdocs --indep #--theme-package=mkdocs-material
+endif

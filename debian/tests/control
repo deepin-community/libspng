@@ -1,0 +1,7 @@
+Tests:
+ pkgconfig,
+Depends:
+ gcc | c-compiler,
+ libc-dev,
+ pkg-config,
+ @,

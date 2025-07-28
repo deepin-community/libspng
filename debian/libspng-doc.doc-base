@@ -1,0 +1,20 @@
+Document: libspng
+Title: libspng documentation
+Author: Randy <randy408@protonmail.com>
+Abstract: libspng is a C library for reading and writing Portable Network Graphics
+ (PNG) format files with a focus on security and ease of use.
+ .
+ The simple API allows decoding a PNG file in just a few function calls,
+ and no raw pointers or callback functions are involved.
+ .
+ Following good security practises, code is written according to the rules
+ of the CERT C Coding Standard. All integer arithmetic is checked for
+ overflow and all error conditions are handled gracefully. The library
+ is also continuously fuzzed, scanned by static analyzers and features
+ over 1000 test cases.
+Section: Programming/C
+
+Format: HTML
+Index: /usr/share/doc/libspng-dev/site/index.html
+Files: /usr/share/doc/libspng-dev/site/*.html
+       /usr/share/doc/libspng-dev/site/*/*.html
